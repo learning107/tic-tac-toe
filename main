@@ -32,7 +32,29 @@ def  player_input():
 
 def place_marker(board, marker, position):
     board[position]=marker
-        
+#Write a function that takes in a board and a mark (X or O) and then checks to see if that mark has won. 
+
+def win_check(board , mark):
+    win=[[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
+    check=[]
+    for i in range(len(board)):
+        if mark==board[i]:
+            check.append(i)
+    if check in win:
+        return("win")
+    else:
+        return("continue")
+#Write a function that uses the random module to randomly decide which player goes first.  
+
+import random
+def choose_first():
+    num=random.randint(1,2)
+    print("Player %d will go first"%num)
+    
+#Write a function that returns a boolean indicating whether a space on the board is freely available.    
+def space_check(board, position):
+    return board[position]==' '   
+    
 int main():
     print('\n'*100)
     num=1 
