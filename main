@@ -7,7 +7,7 @@ def display_board(board):
     print(" | |")
     print("-----")
     print(" | |")
-    print(board[6]+"|"+board[5]+"|"+board[4])
+    print(board[4]+"|"+board[5]+"|"+board[6])
     print(" | |")
     print("-----")
     print(" | |")
@@ -24,9 +24,12 @@ def  player_input():
       player1=input(("Player 1 select your marker X/O: "))
     print("Player 1 : %s" %player1)
     if player1==player2:
+        player2='O'
         print("Player 2 : O\n")
     else:
-        print("Player 2 : X\n") 
+        player2='X'
+        print("Player 2 : X\n")
+    return ["#",player1,player2]
 #Write a function that takes in the board list object, a marker ('X' or 'O'), and a desired position (number 1-9) and assigns it to
 #the board.       
 
@@ -34,22 +37,22 @@ def place_marker(board, marker, position):
     board[position]=marker
 #Write a function that takes in a board and a mark (X or O) and then checks to see if that mark has won. 
 
-def win_check(board , mark):
-    win=[[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7]]
-    check=[]
-    for i in range(len(board)):
-        if mark==board[i]:
-            check.append(i)
-    if check in win:
-        return("win")
-    else:
-        return("continue")
+def win_check(board , marker):
+   return ( (board[1]==marker and board[2]==marker and board[3]==marker)or
+            (board[4]==marker and board[5]==marker and board[6]==marker)or
+            (board[7]==marker and board[8]==marker and board[9]==marker)or
+            (board[1]==marker and board[4]==marker and board[7]==marker)or
+            (board[2]==marker and board[5]==marker and board[8]==marker)or
+            (board[3]==marker and board[6]==marker and board[9]==marker)or
+            (board[1]==marker and board[5]==marker and board[9]==marker)or
+            (board[3]==marker and board[5]==marker and board[7]==marker))
 #Write a function that uses the random module to randomly decide which player goes first.  
 
 import random
 def choose_first():
     num=random.randint(1,2)
     print("Player %d will go first"%num)
+    return num
 
 #Write a function that returns a boolean indicating whether a space on the board is freely available.    
 def space_check(board, position):
@@ -74,14 +77,35 @@ def player_choice(board):
      else:
         print("occupied")
         continue
-        
-int main():
-    print('\n'*100)
-    num=1 
-    board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
-    print("Welcome to tic tac toe!")
-    while(True):
-        display_board(board)
-        
-        
-       
+    display_board(board)
+def replay():
+    x=input("Do you want to play again? Enter yes or no: ")
+    return x=="yes"
+
+print("Welcome to tik-tak-toe!")
+board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+lst=[]
+while(True):
+    lst=player_input()
+    num=int(choose_first())
+    marker=lst[num]
+    ch=input("Are you ready to play? Enter yes or no: ")
+    if ch.lower()=='yes':
+        pass
+    else:
+        break
+    while(full_board_check(board)==False):
+      player_choice(board)
+      if win_check(board,marker)==True:
+          print("Congatulations Player %d"%lst.index(marker))
+          break
+      if marker=='X':
+          marker='O'
+      else:
+          marker='X'
+    if full_board_check(board):
+        print("Sorry! No one wins this one.")
+    if replay():
+        continue
+    else:
+        break
