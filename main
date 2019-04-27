@@ -71,6 +71,9 @@ def full_board_check(board):
 def player_choice(board):
     while(True):
      position=int(input("Choose you next position(1 to 9): "))
+     if position not in range(1,9):
+         print("Invalid")
+         continue
      if (space_check(board,position)):
         place_marker(board,marker,position)
         break
@@ -95,9 +98,10 @@ while(True):
     else:
         break
     while(full_board_check(board)==False):
+      print("%s's turn"%marker)
       player_choice(board)
       if win_check(board,marker)==True:
-          print("Congatulations Player %d"%lst.index(marker))
+          print("Congatulations Player %d! You win!"%lst.index(marker))
           break
       if marker=='X':
           marker='O'
