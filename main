@@ -50,11 +50,31 @@ import random
 def choose_first():
     num=random.randint(1,2)
     print("Player %d will go first"%num)
-    
+
 #Write a function that returns a boolean indicating whether a space on the board is freely available.    
 def space_check(board, position):
     return board[position]==' '   
     
+#Write a function that checks if the board is full and returns a boolean value. True if full, False otherwise.
+def full_board_check(board):
+    check=0
+    for i in board:
+        if i==' ':
+            check+=1
+    return check==0
+
+#Write a function that asks for a player's next position (as a number 1-9) and then uses the function from step 6
+#to check if it's a free position. If it is, then return the position for later use.
+def player_choice(board):
+    while(True):
+     position=int(input("Choose you next position(1 to 9): "))
+     if (space_check(board,position)):
+        place_marker(board,marker,position)
+        break
+     else:
+        print("occupied")
+        continue
+        
 int main():
     print('\n'*100)
     num=1 
