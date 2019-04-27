@@ -27,7 +27,11 @@ def  player_input():
         print("Player 2 : O\n")
     else:
         print("Player 2 : X\n") 
-        
+#Write a function that takes in the board list object, a marker ('X' or 'O'), and a desired position (number 1-9) and assigns it to
+#the board.       
+
+def place_marker(board, marker, position):
+    board[position]=marker
         
 int main():
     print('\n'*100)
